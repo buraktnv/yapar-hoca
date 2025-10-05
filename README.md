@@ -1,5 +1,66 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Prisma & Database
+
+This project uses Prisma with PostgreSQL for a simple education blog (Posts with Categories).
+
+### Docker Setup (Recommended)
+
+1. Copy `env.example` to `.env`:
+
+```bash
+cp env.example .env
+```
+
+2. Start PostgreSQL with Docker:
+
+```bash
+npm run docker:db
+```
+
+3. Run migrations:
+
+```bash
+npm run docker:migrate
+```
+
+4. Start the full application:
+
+```bash
+npm run docker:up
+```
+
+5. Preview the database:
+
+```bash
+npm run docker:studio
+```
+
+### Manual Setup (Alternative)
+
+1. Copy `env.example` to `.env` and set `DATABASE_URL`.
+2. Run migrations and generate client:
+
+```
+npx prisma migrate dev --name init
+```
+
+Preview the database:
+
+```
+npx prisma studio
+```
+
+API routes:
+
+- `GET /api/categories` — list categories
+- `POST /api/categories` — create `{ name, slug }`
+- `GET /api/posts` — list posts with categories
+- `POST /api/posts` — create `{ title, slug, content, excerpt?, published?, categoryIds? }`
+- `GET /api/posts/:id` — fetch a post
+- `PUT /api/posts/:id` — update fields above; set categories with `categoryIds`
+- `DELETE /api/posts/:id` — delete a post
+
 ## Getting Started
 
 First, run the development server:
@@ -34,4 +95,5 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
 # yapar-hoca-frontend

@@ -1,5 +1,5 @@
 "use client"
-import MyEditor from "@/components/MyEditor";
+import MyEditor from "@/components/editor/MyEditor";
 
 const create = () => {
   return (

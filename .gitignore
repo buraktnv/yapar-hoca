@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code
+.claude/
+claude.md
+PHASE2_DOCUMENTATION.md
+CATEGORY_ORDERING.md

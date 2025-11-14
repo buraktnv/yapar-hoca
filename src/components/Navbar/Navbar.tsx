@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 
 const matematikKonulari = {
-  "9": {
+  "9. Sınıf": {
     "Sayılar_ve_Cebir": [
       "Gerçek Sayılar (ondalık, üslü, köklü gösterimler)",
       "Aralıklarla İşlemler",
@@ -37,7 +37,7 @@ const matematikKonulari = {
     ]
   },
 
-  "10": {
+  "10. Sınıf": {
     "Sayılar_ve_Cebir": [
       "Asal Çarpanlar ve Bölenler",
       "EBOB ve EKOK",
@@ -64,7 +64,7 @@ const matematikKonulari = {
     ]
   },
 
-  "11": {
+  "11. Sınıf": {
     "Geometri": {
       "Trigonometri": [
         "Yönlü Açılar (derece, radyan vb.)",
@@ -100,7 +100,7 @@ const matematikKonulari = {
     ]
   },
 
-  "12": {
+  "12. Sınıf": {
     "Sayılar_ve_Cebir": {
       "Üstel_ve_Logaritmik_Fonksiyonlar": [
         "Üstel Fonksiyonlar (özellikler, grafikler)",
@@ -202,7 +202,7 @@ const Sidebar = ({ data = matematikKonulari }) => {
   return (
     <aside className="w-72 max-w-full h-screen overflow-auto border-r border-gray-200 bg-white p-3">
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-lg font-bold"><Link href='/'>Yapar Hoca</Link></h2>
+        <h2 className="text-lg font-bold"><Link href='/'>Yapar Hoca test</Link></h2>
         <div className="flex gap-2">
           <button onClick={() => { }} className="text-sm px-2 py-1 rounded bg-gray-100 hover:bg-gray-200">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

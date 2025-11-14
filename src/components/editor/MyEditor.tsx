@@ -9,29 +9,51 @@ const TinyEditor = dynamic(
   { ssr: false }
 );
 
-export default function MyEditor() {
+interface MyEditorProps {
+  value?: string;
+  onChange?: (content: string) => void;
+  onImageUpload?: (file: File) => Promise<string>;
+  height?: number;
+}
+
+export default function MyEditor({
+  value = "",
+  onChange,
+  onImageUpload,
+  height = 500
+}: MyEditorProps) {
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
   const onInit = useCallback((_evt: any, editor: TinyMCEEditor) => {
     editorRef.current = editor;
   }, []);
 
-  const log = useCallback(() => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+  const handleEditorChange = useCallback((content: string) => {
+    onChange?.(content);
+  }, [onChange]);
+
+  // Custom image upload handler for Supabase Storage
+  const handleImageUpload = useCallback(async (blobInfo: any) => {
+    if (!onImageUpload) {
+      throw new Error('Image upload handler not provided');
     }
-  }, []);
+
+    const file = blobInfo.blob() as File;
+    const url = await onImageUpload(file);
+    return url;
+  }, [onImageUpload]);
 
   return (
-    <div className="mt-24" suppressHydrationWarning>
+    <div suppressHydrationWarning>
       <TinyEditor
         tinymceScriptSrc="/tinymce/tinymce.min.js"
         licenseKey="gpl"
         onInit={onInit}
-        initialValue="<p>This is the initial content of the editor.</p>"
+        value={value}
+        onEditorChange={handleEditorChange}
         init={{
           promotion: false,
-          height: 500,
+          height,
           plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
           editimage_cors_hosts: ['picsum.photos'],
           menubar: 'file edit view insert format tools table help',
@@ -48,12 +70,16 @@ export default function MyEditor() {
           noneditable_class: 'mceNonEditable',
           toolbar_mode: 'sliding',
           contextmenu: 'link image table',
-          skin: true ? 'oxide-dark' : 'oxide',
-          content_css: true ? 'dark' : 'default',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
+          // Light theme
+          skin: 'oxide',
+          content_css: 'default',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+          // Custom image upload handler
+          images_upload_handler: onImageUpload ? handleImageUpload : undefined,
+          automatic_uploads: true,
+          file_picker_types: 'image',
         }}
       />
-      <button onClick={log}>Save</button>
     </div>
   );
 }

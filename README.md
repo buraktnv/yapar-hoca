@@ -1,8 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YaparHoca Blog Platform
 
-## Prisma & Database
+A modern, full-featured blog platform built with Next.js 15, Supabase, and TinyMCE for educational content.
 
-This project uses Prisma with PostgreSQL for a simple education blog (Posts with Categories).
+## Tech Stack
+
+- **Next.js 15** with App Router
+- **Supabase** for authentication, PostgreSQL database, and storage
+- **Prisma** ORM
+- **TinyMCE** rich text editor
+- **shadcn/ui** component library
+- **Tailwind CSS** styling
+
+## Features
+
+### CMS Dashboard
+- Category management
+- Blog post management with rich text editor
+- User management (admin only)
+- Image upload to Supabase Storage
+- Draft/Publish workflow
+- Email/password and magic link authentication
+
+### Public Blog
+- Responsive blog homepage
+- Individual post pages with SEO metadata
+- Category filtering
+- Dynamic navigation from database
+
+---
+
+## Quick Start
 
 ### Docker Setup (Recommended)
 
@@ -97,3 +124,4 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 # yapar-hoca-frontend
+# yapar-hoca

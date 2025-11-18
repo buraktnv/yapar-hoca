@@ -245,7 +245,7 @@ export default function QuizForm({ quiz, posts }: QuizFormProps) {
                 onCheckedChange={(checked) => setIsActive(checked as boolean)}
               />
               <Label htmlFor="isActive" className="cursor-pointer">
-                Quiz'i aktif et
+                Quiz&apos;i aktif et
               </Label>
             </div>
 

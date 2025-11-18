@@ -226,7 +226,7 @@ export default function BannerForm({ banner }: BannerFormProps) {
                 onCheckedChange={(checked) => setIsClickable(checked as boolean)}
               />
               <Label htmlFor="isClickable" className="cursor-pointer">
-                Banner'ı tıklanabilir yap
+                Banner&apos;ı tıklanabilir yap
               </Label>
             </div>
 
@@ -237,7 +237,7 @@ export default function BannerForm({ banner }: BannerFormProps) {
                 onCheckedChange={(checked) => setIsActive(checked as boolean)}
               />
               <Label htmlFor="isActive" className="cursor-pointer">
-                Banner'ı aktif et
+                Banner&apos;ı aktif et
               </Label>
             </div>
           </div>

@@ -192,9 +192,9 @@ export default function QuizzesTable({ quizzes }: QuizzesTableProps) {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Quiz'i sil</AlertDialogTitle>
+            <AlertDialogTitle>Quiz&apos;i sil</AlertDialogTitle>
             <AlertDialogDescription>
-              Bu quiz'i silmek istediğinizden emin misiniz? Tüm sorular ve gönderimler de silinecektir. Bu işlem geri alınamaz.
+              Bu quiz&apos;i silmek istediğinizden emin misiniz? Tüm sorular ve gönderimler de silinecektir. Bu işlem geri alınamaz.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

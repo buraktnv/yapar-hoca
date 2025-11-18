@@ -74,7 +74,7 @@ export async function getCategoryAncestors(categoryId: string): Promise<Category
   let currentId: string | null = categoryId
 
   while (currentId) {
-    const category = await prisma.category.findUnique({
+    const category: any = await prisma.category.findUnique({
       where: { id: currentId }
     })
 

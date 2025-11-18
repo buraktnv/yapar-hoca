@@ -137,19 +137,26 @@ const matematikKonulari = {
   }
 }
 
-const ExpandIcon = (className) => {
+const ExpandIcon = ({ className }: { className?: string }) => {
   return (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <path d="M9 6L15 12L9 18" stroke="#33363F" stroke-width="2" />
+      <path d="M9 6L15 12L9 18" stroke="#33363F" strokeWidth="2" />
     </svg>);
 }
 
 
 // Yardımcı: objeyi key-path'lerle dolaşmak için benzersiz bir id oluşturur
-const makeId = (pathArray: any) => pathArray.join('>')
+const makeId = (pathArray: string[]) => pathArray.join('>')
 
 // Recursive tree renderer
-const TreeNode = ({ nodeKey, nodeValue, path = [], level = 0, openMap, toggle }) => {
+const TreeNode = ({ nodeKey, nodeValue, path = [], level = 0, openMap, toggle }: {
+  nodeKey: string
+  nodeValue: any
+  path?: string[]
+  level?: number
+  openMap: Record<string, boolean>
+  toggle: (id: string) => void
+}) => {
   const id = makeId([...path, nodeKey])
   const isOpen = !!openMap[id]
   const isLeafArray = Array.isArray(nodeValue)
@@ -162,7 +169,7 @@ const TreeNode = ({ nodeKey, nodeValue, path = [], level = 0, openMap, toggle })
         aria-expanded={isOpen}
       >
         <span className="truncate">{nodeKey.replace(/_/g, ' ')}</span>
-        <span className="ml-2 text-sm" onClick={() => toggle(id)}>{isLeafArray ? `(${nodeValue.length})` : isObject ? (isOpen ? < ExpandIcon className="rotate-90" /> : < ExpandIcon />) : ''}</span>
+        <span className="ml-2 text-sm" onClick={() => toggle(id)}>{isLeafArray ? `(${nodeValue.length})` : isObject ? (isOpen ? <ExpandIcon className="rotate-90" /> : <ExpandIcon className="" />) : ''}</span>
       </button>
 
       {isLeafArray && isOpen && (
@@ -192,10 +199,10 @@ const TreeNode = ({ nodeKey, nodeValue, path = [], level = 0, openMap, toggle })
   )
 }
 
-const Sidebar = ({ data = matematikKonulari }) => {
-  const [openMap, setOpenMap] = useState({})
+const Sidebar = ({ data = matematikKonulari }: { data?: any }) => {
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>({})
 
-  const toggle = (id) => {
+  const toggle = (id: string) => {
     setOpenMap(prev => ({ ...prev, [id]: !prev[id] }))
   }
 

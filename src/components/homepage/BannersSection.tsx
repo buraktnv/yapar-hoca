@@ -24,20 +24,8 @@ interface BannersSectionProps {
 export default function BannersSection({ banners }: BannersSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  if (banners.length === 0) {
-    return null
-  }
-
   // Determine layout from first banner (all should have same layout)
-  const layout = banners[0].layout
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev - 1 + banners.length) % banners.length)
-  }
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % banners.length)
-  }
+  const layout = banners.length > 0 ? banners[0].layout : 'grid'
 
   // Auto-play for slider layout
   useEffect(() => {
@@ -50,20 +38,21 @@ export default function BannersSection({ banners }: BannersSectionProps) {
     return () => clearInterval(interval)
   }, [layout, banners.length])
 
-  const renderBanner = (banner: Banner) => {
-    const BannerWrapper = banner.isClickable && banner.linkUrl ? Link : 'div'
-    const wrapperProps = banner.isClickable && banner.linkUrl
-      ? { href: banner.linkUrl, target: '_blank', rel: 'noopener noreferrer' }
-      : {}
+  if (banners.length === 0) {
+    return null
+  }
 
-    return (
-      <BannerWrapper
-        key={banner.id}
-        {...wrapperProps}
-        className={`relative rounded-lg overflow-hidden ${
-          banner.isClickable ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''
-        }`}
-      >
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev - 1 + banners.length) % banners.length)
+  }
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % banners.length)
+  }
+
+  const renderBanner = (banner: Banner) => {
+    const content = (
+      <>
         {banner.image ? (
           <div className="relative w-full h-64 md:h-80">
             <Image
@@ -89,7 +78,30 @@ export default function BannersSection({ banners }: BannersSectionProps) {
             </div>
           </div>
         )}
-      </BannerWrapper>
+      </>
+    )
+
+    if (banner.isClickable && banner.linkUrl) {
+      return (
+        <Link
+          key={banner.id}
+          href={banner.linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`relative rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity`}
+        >
+          {content}
+        </Link>
+      )
+    }
+
+    return (
+      <div
+        key={banner.id}
+        className="relative rounded-lg overflow-hidden"
+      >
+        {content}
+      </div>
     )
   }
 

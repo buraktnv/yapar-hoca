@@ -51,44 +51,57 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
   }
 
   const currentSlide = slides[currentIndex]
-  const SlideWrapper = currentSlide.linkUrl ? Link : 'div'
-  const wrapperProps = currentSlide.linkUrl
-    ? { href: currentSlide.linkUrl, target: '_blank', rel: 'noopener noreferrer' }
-    : {}
+
+  const slideContent = (
+    <>
+      {/* Background Image */}
+      {currentSlide.image && (
+        <Image
+          src={currentSlide.image}
+          alt={currentSlide.title}
+          fill
+          className="object-cover"
+          priority={currentIndex === 0}
+        />
+      )}
+
+      {/* Overlay Content */}
+      <div className={`${currentSlide.image ? 'absolute inset-0 bg-black/40' : ''} flex items-center justify-center`}>
+        <div className="text-center px-8 max-w-4xl">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            {currentSlide.title}
+          </h2>
+          {currentSlide.content && (
+            <p className="text-lg md:text-xl text-white/90">
+              {currentSlide.content}
+            </p>
+          )}
+        </div>
+      </div>
+    </>
+  )
 
   return (
     <div className="relative w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden group">
       {/* Slide Content */}
-      <SlideWrapper
-        {...wrapperProps}
-        className="relative w-full h-full block"
-        style={{ backgroundColor: currentSlide.bgColor || '#1e3a8a' }}
-      >
-        {/* Background Image */}
-        {currentSlide.image && (
-          <Image
-            src={currentSlide.image}
-            alt={currentSlide.title}
-            fill
-            className="object-cover"
-            priority={currentIndex === 0}
-          />
-        )}
-
-        {/* Overlay Content */}
-        <div className={`${currentSlide.image ? 'absolute inset-0 bg-black/40' : ''} flex items-center justify-center`}>
-          <div className="text-center px-8 max-w-4xl">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              {currentSlide.title}
-            </h2>
-            {currentSlide.content && (
-              <p className="text-lg md:text-xl text-white/90">
-                {currentSlide.content}
-              </p>
-            )}
-          </div>
+      {currentSlide.linkUrl ? (
+        <Link
+          href={currentSlide.linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="relative w-full h-full block"
+          style={{ backgroundColor: currentSlide.bgColor || '#1e3a8a' }}
+        >
+          {slideContent}
+        </Link>
+      ) : (
+        <div
+          className="relative w-full h-full block"
+          style={{ backgroundColor: currentSlide.bgColor || '#1e3a8a' }}
+        >
+          {slideContent}
         </div>
-      </SlideWrapper>
+      )}
 
       {/* Navigation Arrows */}
       {slides.length > 1 && (

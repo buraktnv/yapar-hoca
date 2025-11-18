@@ -183,7 +183,7 @@ export default function BannersTable({ banners }: BannersTableProps) {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Banner'ı sil</AlertDialogTitle>
+            <AlertDialogTitle>Banner&apos;ı sil</AlertDialogTitle>
             <AlertDialogDescription>
               Bu banner'ı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.
             </AlertDialogDescription>

@@ -4,16 +4,21 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 import QuizSubmissionsTable from '@/components/dashboard/QuizSubmissionsTable'
+import { cookies } from 'next/headers'
 
 export default async function QuizSubmissionsPage({ params }: { params: Promise<{ id: string }> }) {
   await requireAdmin()
   const { id } = await params
 
+  // Get cookies for auth
+  const cookieStore = await cookies()
+  const cookieHeader = cookieStore.toString()
+
   // Fetch submissions data
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/quizzes/${id}/submissions`, {
     cache: 'no-store',
     headers: {
-      'Cookie': await import('next/headers').then(mod => mod.cookies().toString())
+      'Cookie': cookieHeader
     }
   })
 

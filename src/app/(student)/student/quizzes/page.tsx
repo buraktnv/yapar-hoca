@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { FileText, ExternalLink } from 'lucide-react'
+import { cookies } from 'next/headers'
 
 interface QuizSubmission {
   id: string
@@ -26,10 +27,14 @@ interface QuizSubmission {
 export default async function StudentQuizzesPage() {
   await requireAuth()
 
+  // Get cookies for auth
+  const cookieStore = await cookies()
+  const cookieHeader = cookieStore.toString()
+
   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/submissions/my-submissions`, {
     cache: 'no-store',
     headers: {
-      'Cookie': await import('next/headers').then(mod => mod.cookies().toString())
+      'Cookie': cookieHeader
     }
   })
 

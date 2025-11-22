@@ -5,6 +5,8 @@ import { Badge } from '@/components/ui/badge'
 import { Gamepad2 } from 'lucide-react'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Oyunlar | YaparHoca',
   description: 'Eğitici ve eğlenceli HTML tabanlı interaktif oyunlar',

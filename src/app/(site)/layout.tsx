@@ -6,6 +6,8 @@ import { getCategoryTree } from '@/lib/categoryHelpers';
 import { getUser } from '@/lib/auth/helpers';
 import prisma from '@/lib/prisma';
 
+export const dynamic = 'force-dynamic';
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

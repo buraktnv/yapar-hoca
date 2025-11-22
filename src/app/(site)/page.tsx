@@ -5,6 +5,8 @@ import BannersSection from '@/components/homepage/BannersSection'
 import FeaturedPostsCarousel from '@/components/homepage/FeaturedPostsCarousel'
 import RecentPostsCarousel from '@/components/homepage/RecentPostsCarousel'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'YaparHoca | Eğitim Blogu',
   description: 'Matematik ve eğitim konularında blog yazıları',

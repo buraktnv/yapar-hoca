@@ -2,13 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, FileText, FolderOpen, Users, GraduationCap, Settings, Bell, Image, LayoutGrid, Star, HelpCircle } from 'lucide-react'
+import { Home, FileText, FolderOpen, Users, GraduationCap, Settings, Bell, Image, LayoutGrid, Star, HelpCircle, Gamepad2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: Home },
   { name: 'Blog Yazıları', href: '/dashboard/posts', icon: FileText },
   { name: 'Kategoriler', href: '/dashboard/categories', icon: FolderOpen },
+  { name: 'Oyunlar', href: '/dashboard/games', icon: Gamepad2 },
   { name: 'Quizler', href: '/dashboard/quizzes', icon: HelpCircle },
   { name: 'Bildirimler', href: '/dashboard/notifications', icon: Bell },
   { name: 'Ana Slider', href: '/dashboard/hero-slides', icon: Image },

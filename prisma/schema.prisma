@@ -49,6 +49,7 @@ model Category {
   parent      Category?  @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Cascade)
   children    Category[] @relation("CategoryTree")
   posts       Post[]
+  games       Game[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
@@ -226,6 +227,43 @@ model QuizSubmission {
   @@index([quizId])
   @@index([userId])
   @@index([createdAt])
+}
+
+model SiteSettings {
+  id              String   @id @default("default")
+  faviconUrl      String?  // Main favicon (used as fallback)
+  favicon16Url    String?  // 16x16 favicon
+  favicon32Url    String?  // 32x32 favicon
+  favicon180Url   String?  // 180x180 Apple touch icon
+  favicon192Url   String?  // 192x192 Android icon
+  favicon512Url   String?  // 512x512 large icon
+  logoUrl         String?
+  // Site branding options
+  siteName        String   @default("YaparHoca")
+  brandingType    String   @default("text") // "text", "logo", "icon_text"
+  brandingLogoUrl String?  // Logo image for navbar
+  brandingIconUrl String?  // Small icon for icon+text mode
+  updatedAt       DateTime @updatedAt
+}
+
+model Game {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String?
+  htmlContent  String?  @db.Text // Full HTML content including JS/CSS
+  thumbnailUrl String?  // Optional preview thumbnail
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  isPublished  Boolean  @default(false)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([categoryId])
+  @@index([slug])
+  @@index([isPublished])
+  @@index([order])
 }
 
 

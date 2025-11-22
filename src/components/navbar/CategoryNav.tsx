@@ -20,15 +20,58 @@ interface User {
   role: 'ADMIN' | 'USER'
 }
 
+interface Branding {
+  siteName: string
+  brandingType: 'text' | 'logo' | 'icon_text'
+  brandingLogoUrl: string | null
+  brandingIconUrl: string | null
+}
+
 interface CategoryNavProps {
   user: User | null
+  branding: Branding
   onMenuToggle: () => void
 }
 
-export default function CategoryNav({ user, onMenuToggle }: CategoryNavProps) {
+export default function CategoryNav({ user, branding, onMenuToggle }: CategoryNavProps) {
   async function handleSignOut() {
     await signOut()
     window.location.href = '/login'
+  }
+
+  // Render branding based on type
+  const renderBranding = () => {
+    switch (branding.brandingType) {
+      case 'logo':
+        if (branding.brandingLogoUrl) {
+          return (
+            <img
+              src={branding.brandingLogoUrl}
+              alt={branding.siteName}
+              className="h-8 w-auto"
+            />
+          )
+        }
+        return <span className="text-xl font-bold text-gray-900">{branding.siteName}</span>
+
+      case 'icon_text':
+        return (
+          <div className="flex items-center gap-2">
+            {branding.brandingIconUrl && (
+              <img
+                src={branding.brandingIconUrl}
+                alt=""
+                className="h-8 w-8 object-contain"
+              />
+            )}
+            <span className="text-xl font-bold text-gray-900">{branding.siteName}</span>
+          </div>
+        )
+
+      case 'text':
+      default:
+        return <span className="text-xl font-bold text-gray-900">{branding.siteName}</span>
+    }
   }
 
   return (
@@ -45,7 +88,7 @@ export default function CategoryNav({ user, onMenuToggle }: CategoryNavProps) {
             </button>
 
             <Link href="/" className="flex items-center">
-              <span className="text-xl font-bold text-gray-900">YaparHoca</span>
+              {renderBranding()}
             </Link>
           </div>
 
